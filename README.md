@@ -11,10 +11,10 @@ and ```programming```.
 
 ## Usage:
 
-Before you can use noterman, you need to run ```noterman setup DIR``` where DIR
+Before you can use noterman, you need to run ```noterman --setup DIR``` where DIR
 is the directory for saving your notes. If you're using MacOS, i'd recommend
 using ```~/Library/Application\ Support/noterman```.
 
-- Create a new note: ```noterman add```
-- Change a note: ```noterman change 438```
-- Delete a note: ```noterman delete 196```
+- Create a new note: ```noterman --add```
+- Change a note: ```noterman --change 438```
+- Delete a note: ```noterman --delete 196```
