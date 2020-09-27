@@ -18,3 +18,4 @@ using ```~/Library/Application\ Support/noterman```.
 - Create a new note: ```noterman --add```
 - Change a note: ```noterman --change 438```
 - Delete a note: ```noterman --delete 196```
+- List all notes: ```noterman --list```
