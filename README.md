@@ -7,7 +7,7 @@ I'm planing to implement this in Python, and in C.
 
 With noterman, you can create, change and delete notes. Every note has a uid which
 is used for deleting and changing notes.These notes can have tags, like ```school```
-and ```programming```.
+and ```programming```, which cannot contain spaces.
 
 ## Usage:
 
