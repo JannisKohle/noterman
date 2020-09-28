@@ -1,6 +1,6 @@
 # noterman
 
-noterman is a command line interface for quickly writing & checking small notes.
+noterman is a command line interface for quickly writing & checking small notes **(MacOS only)**.
 I'm planing to implement this in Python, and in C.
 
 ## What noterman can do:
