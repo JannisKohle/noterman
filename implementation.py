@@ -29,11 +29,25 @@ elif argv[1] == "--help":
     printUsage()
 
 elif argv[1] == "--setup":
-    if len(argv) == 2: # --setup (Create config file, if it exists already - check DIR setup)
-        pass
+    if len(argv) == 2: # --setup (Check DIR setup)
+        DIR = getDIR()
+        if DIR != 0:
+            print("noterman will save your notes in " + DIR)
+            exit()
+        else:
+            print("You haven't specified a directory for saving notes yet. You can\ndo that with 'noterman --setup DIR' where DIR is the directory.")
+            exit()
 
     elif len(argv) == 3: # --setup DIR (Create config file and setup DIR)
-        pass
+        DIR = os.path.expanduser(argv[2])
+        if not os.path.isdir(DIR):
+            os.system("mkdir " + DIR)
+
+        # create & write config file:
+        if "noterman.json" in os.system("ls " + os.path.expanduser("~/.config")):
+            with open(os.path.expanduser("~/.config/noterman.json"), "r+") as f:
+                f.truncate(0)
+                json.dump({"DIR": DIR})
 
     else:
         printUsage()
