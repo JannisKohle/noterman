@@ -2,6 +2,7 @@
 
 import sys
 import os
+import json
 
 def printUsage(): # and exit
     print("\nUsage:\nnoterman [--setup DIR | --list TAG | --add | --change ID | --delete ID]\n")
@@ -11,7 +12,20 @@ argv = sys.argv
 
 ##########
 
+def getDIR(): # get DIR from the config file
+    if "noterman.json" in os.system("ls " + os.path.expanduser("~/.config")):
+        with open(os.path.expanduser("~/.config/noterman.json"), "r+") as f:
+            content = json.load(f)
+            return content["DIR"]
+    else:
+        return 0
+
+##########
+
 if len(argv) == 1:
+    printUsage()
+
+elif argv[1] == "--help":
     printUsage()
 
 elif argv[1] == "--setup":
