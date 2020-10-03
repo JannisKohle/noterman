@@ -16,7 +16,7 @@ def getDIR(): # get DIR from the config file
     if "noterman.json" in os.system("ls " + os.path.expanduser("~/.config")):
         with open(os.path.expanduser("~/.config/noterman.json"), "r+") as f:
             content = json.load(f)
-            return content["DIR"]
+            return os.path.expanduser(content["DIR"])
     else:
         return 0
 
@@ -54,7 +54,12 @@ elif argv[1] == "--setup":
 
 elif argv[1] == "--list":
     if len(argv) == 2: # --list (List all)
-        pass
+        files = os.listdir(getDIR())
+        print("{:>5}  {:12}  {:12}\n".format("ID", "TEXT", "DD/MM/YYYY"))
+        for file in files:
+            with open(getDIR()+"/"+file, "r+") as f:
+                content = json.load()
+            print("{:>5}  {:12}  {:10}".format(content["id"], content["text"], content["date"]))
 
     elif len(argv) == 3: # --list TAG (List all with TAG)
         pass
