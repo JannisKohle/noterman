@@ -55,14 +55,27 @@ elif argv[1] == "--setup":
 elif argv[1] == "--list":
     if len(argv) == 2: # --list (List all)
         files = os.listdir(getDIR())
-        print("{:>5}  {:12}  {:12}\n".format("ID", "TEXT", "DD/MM/YYYY"))
+        print("{:>5}  {:12}  {:12}  {:10}\n".format("ID", "TAG", "TEXT", "DD/MM/YYYY"))
         for file in files:
             with open(getDIR()+"/"+file, "r+") as f:
                 content = json.load()
-            print("{:>5}  {:12}  {:10}".format(content["id"], content["text"], content["date"]))
+            print("{:>5}  {:12}  {:12}  {:10}\n".format(content["id"], content["tag"], content["text"], content["date"]))
+
+        print()
+        exit()
 
     elif len(argv) == 3: # --list TAG (List all with TAG)
-        pass
+        files = os.listdir(getDIR())
+        print("{:>5}  {:12}  {:12}  {:10}\n".format("ID", "TAG", "TEXT", "DD/MM/YYYY"))
+        for file in files:
+            with open(getDIR()+"/"+file, "r+") as f:
+                content = json.load()
+            if content["tag"] == argv[2]:
+                print("{:>5}  {:12}  {:12}  {:10}\n".format(content["id"], content["tag"], content["text"], content["date"]))
+
+        
+        print()
+        exit()
 
     else:
         printUsage()
