@@ -3,6 +3,7 @@
 import sys
 import os
 import json
+import random
 
 def printUsage(): # and exit
     print("\nUsage:\nnoterman [--setup DIR | --list TAG | --add | --change ID | --delete ID]\n")
@@ -12,11 +13,12 @@ argv = sys.argv
 
 ##########
 
-def getDIR(): # get DIR from the config file
+def getDIR(): # get DIR from the config file and return it WITHOUT '/' at the end
     if "noterman.json" in os.system("ls " + os.path.expanduser("~/.config")):
         with open(os.path.expanduser("~/.config/noterman.json"), "r+") as f:
             content = json.load(f)
-            return os.path.expanduser(content["DIR"])
+            DIR = os.path.expanduser(content["DIR"])
+            return DIR[:-1] if DIR.endswith("/") else DIR
     else:
         return 0
 
@@ -44,10 +46,12 @@ elif argv[1] == "--setup":
             os.system("mkdir " + DIR)
 
         # create & write config file:
-        if "noterman.json" in os.system("ls " + os.path.expanduser("~/.config")):
-            with open(os.path.expanduser("~/.config/noterman.json"), "r+") as f:
-                f.truncate(0)
-                json.dump({"DIR": DIR})
+        if "noterman.json" not in os.system("ls " + os.path.expanduser("~/.config")): # create config file if it doesn't exist
+            os.system(f"touch {~/.config}/noterman.json")
+
+        with open(os.path.expanduser("~/.config/noterman.json"), "r+") as f:
+            f.truncate(0) # clear file
+            json.dump({"DIR": DIR}, f)
 
     else:
         printUsage()
@@ -82,7 +86,17 @@ elif argv[1] == "--list":
 
 elif argv[1] == "--add":
     if len(argv) == 2: # --add (add note with RANDOM id)
-        pass
+        text = input("text: ")
+        tag = input("tag: ")
+
+        id = random.randint(100, 999)
+        date = "06/10/2020" # TODO
+
+        DIR = getDIR()
+        os.system(f"touch {DIR}/{id}.json")
+        with open(f"{DIR}/{id}.json", "r+") as f:
+            towrite = {"id": id, "text": text, "tag": tag, "date": date}
+            json.dump(towrite, f)
 
     else:
         printUsage()
