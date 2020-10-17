@@ -103,7 +103,21 @@ elif argv[1] == "--add":
 
 elif argv[1] == "--change":
     if len(argv) == 3: # --change ID
-        pass
+        newText = input("text: ")
+        newTag = input("tag: ")
+
+        id = argv[2]
+        if id+".json" in os.listdir(getDIR()): # check if note exists
+            with open(f"{DIR}/{id}.json", "r+") as f:
+                content = json.load(f)
+                content["text"] = text
+                content["tag"] = tag
+                f.truncate(0)
+                json.dump(content, f)
+            print(f"Successfully changed note #{id}")
+
+        else:
+            print(f"Note with id {id} does not exist.")
 
     else:
         printUsage()
